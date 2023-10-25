@@ -6,6 +6,7 @@ const tracks = [
     album: "Welcome Reality",
     isliked: false,
     time: "4:44",
+    genre: "Альтернатива",
   },
   {
     id: 1,
@@ -14,6 +15,7 @@ const tracks = [
     album: "Elektro",
     isliked: false,
     time: "2:22",
+    genre: "Реп",
   },
   {
     id: 2,
@@ -22,6 +24,7 @@ const tracks = [
     album: "I’m Fire",
     isliked: false,
     time: "2:22",
+    genre: "Поп-музыка",
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ const tracks = [
     album: "Non Stop",
     isliked: false,
     time: "4:12",
+    genre: "Техно",
   },
   {
     id: 4,
@@ -40,6 +44,7 @@ const tracks = [
     album: "Run Run",
     isliked: false,
     time: "2:54",
+    genre: "Инди",
   },
   {
     id: 5,
@@ -49,6 +54,7 @@ const tracks = [
     album: "Eyes on Fire",
     isliked: false,
     time: "5:20",
+    genre: "Рок",
   },
   {
     id: 6,
@@ -58,6 +64,7 @@ const tracks = [
     album: "Mucho Bien",
     isliked: false,
     time: "3:41",
+    genre: "Поп-музыка",
   },
   {
     id: 7,
@@ -66,6 +73,7 @@ const tracks = [
     album: "Captivating",
     isliked: false,
     time: "1:48",
+    genre: "Техно",
   },
   {
     id: 8,
@@ -74,6 +82,7 @@ const tracks = [
     album: "How Deep Is Your Love",
     isliked: false,
     time: "3:32",
+    genre: "Рок",
   },
   {
     id: 9,
@@ -82,6 +91,23 @@ const tracks = [
     album: "Soundz Made in Romania",
     isliked: false,
     time: "3:36",
+    genre: "Инди",
   },
 ];
-export default tracks;
+const playLists = [
+  {
+    id: 0,
+    src: "img/playlist01.png",
+  },
+  {
+    id: 1,
+    src: "img/playlist02.png",
+  },
+  {
+    id: 2,
+    src: "img/playlist03.png",
+  },
+];
+
+export { tracks };
+export { playLists };

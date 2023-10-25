@@ -1,9 +1,8 @@
-import "./CSS/Tracklist.css";
-import tracks from "../main";
+import "./Tracklist.css";
 import GetTrack from "./Track";
+import Filter from "../filter/Filter";
 
-export default function TrackList() {
-  const listItems = tracks.map((track) => GetTrack(track));
+export default function TrackList({ tracks }) {
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -18,17 +17,10 @@ export default function TrackList() {
         />
       </div>
       <h2 className="centerblock__h2">Треки</h2>
-      <div className="centerblock__filter filter">
-        <div className="filter__title">Искать по:</div>
-        <div className="filter__button button-author _btn-text">
-          исполнителю
-        </div>
-        <div className="filter__button button-year _btn-text">году выпуска</div>
-        <div className="filter__button button-genre _btn-text">жанру</div>
-      </div>
+      <Filter />
       <div className="centerblock__content">
         <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
+          <div className="playlist-title__col col01">ТРЕК</div>
           <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
           <div className="playlist-title__col col03">АЛЬБОМ</div>
           <div className="playlist-title__col col04">
@@ -37,7 +29,13 @@ export default function TrackList() {
             </svg>
           </div>
         </div>
-        <ul className="content__playlist playlist">{listItems}</ul>
+        <ul className="content__playlist playlist">
+          {tracks
+            ? tracks.map((track) => GetTrack(track))
+            : Array(10)
+                .fill()
+                .map(() => GetTrack())}
+        </ul>
       </div>
     </div>
   );

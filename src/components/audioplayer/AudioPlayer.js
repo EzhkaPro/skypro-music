@@ -1,6 +1,7 @@
-import "./CSS/AudioPlayer.css";
+import "./AudioPlayer.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-export default function Player() {
+export default function Player({ prop }) {
   return (
     <div className="bar">
       <div className="bar__content">
@@ -36,21 +37,35 @@ export default function Player() {
             </div>
             <div className="player__track-play track-play">
               <div className="track-play__contain">
-                <div className="track-play__image">
-                  <svg className="track-play__svg" alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note" />
-                  </svg>
-                </div>
-                <div className="track-play__author">
-                  <a className="track-play__author-link" href="http://">
-                    Ты та...
-                  </a>
-                </div>
-                <div className="track-play__album">
-                  <a className="track-play__album-link" href="http://">
-                    Баста
-                  </a>
-                </div>
+                <SkeletonTheme baseColor="#313131" highlightColor="#444">
+                  <div className="track-play__image">
+                    {prop ? (
+                      <svg className="track-play__svg" alt="music">
+                        <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                      </svg>
+                    ) : (
+                      <Skeleton width={50} height={50} />
+                    )}
+                  </div>
+                  <div className="track-play__author">
+                    {prop ? (
+                      <a className="track-play__author-link" href="http://">
+                        {prop.name}
+                      </a>
+                    ) : (
+                      <Skeleton width={50} height={15} />
+                    )}
+                  </div>
+                  <div className="track-play__album">
+                    {prop ? (
+                      <a className="track-play__album-link" href="http://">
+                        {prop.author}{" "}
+                      </a>
+                    ) : (
+                      <Skeleton width={50} height={15} />
+                    )}
+                  </div>
+                </SkeletonTheme>
               </div>
               <div className="track-play__like-dis">
                 <div className="track-play__like _btn-icon">
