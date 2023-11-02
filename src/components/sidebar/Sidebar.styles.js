@@ -1,9 +1,10 @@
-.main__sidebar {
+import { styled } from "styled-components";
+
+export const mainSidebar = styled.div`
   max-width: 418px;
   padding: 20px 90px 20px 78px;
-}
-
-.sidebar__personal {
+`;
+export const sidebarPersonal = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -18,26 +19,23 @@
   -ms-flex-pack: end;
   justify-content: flex-end;
   padding: 12px 0 15px 0;
-}
-
-.sidebar__personal-name {
+`;
+export const sidebarPersonalName = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
   margin-right: 16px;
-}
-
-.sidebar__icon {
+`;
+export const sidebarIcon = styled.div`
   width: 43px;
   height: 43px;
   background-color: #313131;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.sidebar__block {
+`;
+export const sidebarBlock = styled.div`
   height: 100%;
   padding: 240px 0 0 0;
   display: -webkit-box;
@@ -50,9 +48,8 @@
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-}
-
-.sidebar__list {
+`;
+export const sidebarList = styled.ul`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -63,23 +60,19 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.sidebar__item {
+`;
+export const sidebarItem = styled.li`
   width: 250px;
   height: 150px;
-}
-
-.sidebar__item:not(:last-child) {
-  margin-bottom: 30px;
-}
-
-.sidebar__link {
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+`;
+export const sidebarLink = styled.a`
   width: 100%;
   height: 100%;
-}
-
-.sidebar__img {
+`;
+export const sidebarImg = styled.img`
   width: 100%;
   height: auto;
-}
+`;
