@@ -5,6 +5,7 @@ import Navigation from "../../components/navmenu/NavMenu";
 import Player from "../../components/player/AudioPlayer";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TrackList from "../../components/traklist/Tracklist";
+import { getTracks } from "../../api";
 
 function Main() {
   const [content, setContent] = useState({});
