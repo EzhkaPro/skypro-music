@@ -9,6 +9,8 @@ export const centalBlockSearch = styled.div`
   width: 100%;
   border-bottom: 1px solid #4e4e4e;
   margin-bottom: 51px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -114,16 +116,15 @@ export const contentPlaylist = styled.ul`
     display: none;
   }
 `;
-const playlistTitleColumn = styled.div`
-  .playlist-title__col {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: 2px;
-    color: #696969;
-    text-transform: uppercase;
-  `;
+export const playlistTitleColumn = styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  color: #696969;
+  text-transform: uppercase;
+`;
 export const playlistTitleCol01 = styled(playlistTitleColumn)`
   width: 447px;
 `;
