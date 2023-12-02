@@ -1,20 +1,85 @@
+import { useRef, useState, useEffect } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import ButtonSVG from "../buttonSVG/ButtonSVG";
+import { ProgressBar } from "./ProgressBar";
+import { VolumeRange } from "../volumeRange/volumeRange";
 import * as S from "./Player.styles";
 
-export default function Player({ prop }) {
+export default function Player({ prop, setTrack }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef();
+  const handleStart = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+  const handleStop = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+  const togglePlay = isPlaying ? handleStop : handleStart;
+
+  const onLoadedMetadata = () => {
+    setDuration(audioRef.current.duration);
+  };
+  const onTimeUpdate = () => {
+    setTimeProgress(audioRef.current.currentTime);
+  };
+  const [isCycled, setIsCycled] = useState(true);
+  const toggleCycling = () => {
+    setIsCycled(!isCycled);
+    audioRef.current.loop = isCycled;
+  };
+
+  useEffect(() => {
+    if (prop) {
+      handleStart();
+      audioRef.current.onended = () => {
+        setTrack(null);
+        setIsPlaying(false);
+      };
+    }
+  }, [prop, setTrack]);
+
   return (
     <S.bar>
       <S.barContent>
-        <S.barPlayerProgress> </S.barPlayerProgress>
+        {prop && (
+          <audio
+            ref={audioRef}
+            onTimeUpdate={onTimeUpdate}
+            onLoadedMetadata={onLoadedMetadata}
+            src={prop.track_file}
+          />
+        )}
+        <ProgressBar {...{ duration, timeProgress, audioRef }} />
         <S.barPlayerBlock>
           <S.barPlayer>
             <S.playerControls>
-              <ButtonSVG name="prev" />
-              <ButtonSVG name="play" />
-              <ButtonSVG name="next" />
-              <ButtonSVG name="repeat" />
-              <ButtonSVG name="shuffle" />
+              <ButtonSVG
+                name="prev"
+                click={() => {
+                  alert("в проекте");
+                }}
+              />
+              <ButtonSVG
+                click={togglePlay}
+                name={isPlaying ? "pause" : "play"}
+              />
+              <ButtonSVG
+                name="next"
+                click={() => {
+                  alert("в проекте");
+                }}
+              />
+              <ButtonSVG name="repeat" click={toggleCycling} active />
+              <ButtonSVG
+                name="shuffle"
+                click={() => {
+                  alert("в проекте");
+                }}
+              />
             </S.playerControls>
             <S.playerTrackPlay>
               <S.trackPlayContain>
@@ -40,7 +105,7 @@ export default function Player({ prop }) {
                   <S.trackPlayAlbum>
                     {prop ? (
                       <S.trackPlayAlbumLink href="http://">
-                        {prop.author}{" "}
+                        {prop.author}
                       </S.trackPlayAlbumLink>
                     ) : (
                       <Skeleton width={50} height={15} />
@@ -49,21 +114,32 @@ export default function Player({ prop }) {
                 </SkeletonTheme>
               </S.trackPlayContain>
               <S.trackPlayLikeDis>
-                <ButtonSVG name="like" />
-                <ButtonSVG name="dislike" />
+                <ButtonSVG
+                  name="like"
+                  click={() => {
+                    alert("в проекте");
+                  }}
+                />
+                <ButtonSVG
+                  name="dislike"
+                  click={() => {
+                    alert("в проекте");
+                  }}
+                />
               </S.trackPlayLikeDis>
             </S.playerTrackPlay>
-            {prop && (
-              <audio controls src={prop.track_file}>
-                <track kind="captions" src={prop.captions_file} />
-              </audio>
-            )}
           </S.barPlayer>
           <S.barVolumeBlock>
             <S.volumeContent>
-              <ButtonSVG name="volume" />
+              <ButtonSVG
+                name="volume"
+                click={() => {
+                  alert("в проекте");
+                }}
+              />
               <S.volumeProgress>
-                <S.volumeProgressLine type="range" name="range" />
+                {}
+                {prop && <VolumeRange audioRef={audioRef} />}
               </S.volumeProgress>
             </S.volumeContent>
           </S.barVolumeBlock>
