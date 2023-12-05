@@ -30,6 +30,7 @@ export default function Player({ prop, setTrack }) {
   const toggleCycling = () => {
     setIsCycled(!isCycled);
     audioRef.current.loop = isCycled;
+    // console.log(isCycled)
   };
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function Player({ prop, setTrack }) {
               <ButtonSVG
                 name="prev"
                 click={() => {
-                  alert("в проекте");
+                  alert("Еще не реализовано");
                 }}
               />
               <ButtonSVG
@@ -70,14 +71,14 @@ export default function Player({ prop, setTrack }) {
               <ButtonSVG
                 name="next"
                 click={() => {
-                  alert("в проекте");
+                  alert("Еще не реализовано");
                 }}
               />
               <ButtonSVG name="repeat" click={toggleCycling} active />
               <ButtonSVG
                 name="shuffle"
                 click={() => {
-                  alert("в проекте");
+                  alert("Еще не реализовано");
                 }}
               />
             </S.playerControls>
@@ -117,13 +118,13 @@ export default function Player({ prop, setTrack }) {
                 <ButtonSVG
                   name="like"
                   click={() => {
-                    alert("в проекте");
+                    alert("Еще не реализовано");
                   }}
                 />
                 <ButtonSVG
                   name="dislike"
                   click={() => {
-                    alert("в проекте");
+                    alert("Еще не реализовано");
                   }}
                 />
               </S.trackPlayLikeDis>
@@ -134,11 +135,11 @@ export default function Player({ prop, setTrack }) {
               <ButtonSVG
                 name="volume"
                 click={() => {
-                  alert("в проекте");
+                  alert("Еще не реализовано");
                 }}
               />
               <S.volumeProgress>
-                {}
+                {/* <S.volumeProgressLine type="range" name="range" /> */}
                 {prop && <VolumeRange audioRef={audioRef} />}
               </S.volumeProgress>
             </S.volumeContent>
