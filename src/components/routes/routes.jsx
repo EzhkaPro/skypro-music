@@ -10,13 +10,13 @@ import Categories from "../../pages/category/category";
 import { AuthContext } from "../context/context";
 
 const AppRoutes = () => {
-  const { isAuth, isLoading } = useContext(AuthContext);
+  const { user, isLoading } = useContext(AuthContext);
 
   const element = useRoutes([
     { path: "/login", element: <SignIn /> },
     { path: "/signup", element: <SignUp /> },
     {
-      element: <ProtectedRoute isAllowed={isAuth !== null || isLoading} />,
+      element: <ProtectedRoute isAllowed={user !== null || isLoading} />,
       children: [
         { path: "/", element: <Main /> },
         { path: "/favorites", element: <Favorites /> },

@@ -10,7 +10,7 @@ export default function SignIn() {
   const [loginData, setLoginData] = useState(null);
   const [errors, setErrors] = useState(false);
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loginUser, loading, error] = useFetching(async (logData) => {
     const resp = await getRegistration(logData, "login");
     const respData = await resp.json();
@@ -18,7 +18,7 @@ export default function SignIn() {
       setErrors(respData);
       throw new Error("Ошибка авторизации");
     } else {
-      setIsAuth(respData);
+      setUser(respData);
       localStorage.setItem("auth", JSON.stringify(respData));
       navigate("/", { replace: true });
     }
@@ -46,7 +46,4 @@ export default function SignIn() {
       </S.containerEnter>
     </S.wrapper>
   );
-}
-export function saveUserToLocalStorage(user) {
-  window.localStorage.setItem("user", JSON.stringify(user));
 }

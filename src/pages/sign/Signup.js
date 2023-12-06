@@ -10,7 +10,7 @@ export const SignUp = () => {
   const [registrationData, setRegistrationData] = useState(null);
   const [errors, setErrors] = useState(false);
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const [fetchNewUser, loading, error] = useFetching(async (regData) => {
     const resp = await getRegistration(regData);
@@ -19,7 +19,7 @@ export const SignUp = () => {
       setErrors(respData);
       throw new Error("Ошибка регистрации");
     } else {
-      setIsAuth(respData);
+      setUser(respData);
       localStorage.setItem("auth", JSON.stringify(respData));
       navigate("/", { replace: true });
     }
