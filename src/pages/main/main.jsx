@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/context/context";
 import * as S from "./main.styles";
@@ -9,28 +10,30 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import TrackList from "../../components/traklist/Tracklist";
 import { getTracks } from "../../api/api";
 import { useFetching } from "../../utils/hooks";
+import { setAllTracks } from "../../store/slices/tracksSlice";
 
 function Main() {
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const { setUser } = useContext(AuthContext);
+
   const logout = () => {
-    setIsAuth(false);
+    setUser(false);
     navigate("/login", { replace: false });
     localStorage.removeItem("auth");
   };
 
   const [content, setContent] = useState({});
-  // const [loading, setLoading] = useState(true)
-  const [currentTrack, setCurrentTruck] = useState(null);
-  // const [newError, setNewError] = useState(null)
 
   const [fetchTracks, loading, error] = useFetching(async () => {
     const response = await getTracks();
     setContent({
-      tracklist: response,
       sidebar: playLists,
     });
+
+    dispatch(setAllTracks(await response));
   });
+  const currentTrack = useSelector((state) => state.tracks.currentTrack);
 
   useEffect(() => {
     fetchTracks();
@@ -41,25 +44,10 @@ function Main() {
       <S.container>
         <S.main>
           <Navigation logout={logout} />
-          {loading && (
-            <>
-              <TrackList />
-              <Sidebar />
-              <Player />
-            </>
-          )}
-          {!loading && (
-            <>
-              <TrackList
-                tracks={content.tracklist}
-                setTrack={setCurrentTruck}
-                error={error}
-              />
-              {!error && <Sidebar logout={logout} array={content.sidebar} />}
-              {currentTrack && (
-                <Player prop={currentTrack} setTrack={setCurrentTruck} />
-              )}
-            </>
+          <TrackList loading={loading} error={error} />
+          <Sidebar logout={logout} array={content.sidebar} error={error} />
+          {(currentTrack || loading) && (
+            <Player currentTrack={currentTrack} loading={loading} />
           )}
         </S.main>
         <footer className="footer" />
