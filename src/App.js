@@ -6,11 +6,11 @@ import AppRoutes from "./components/routes/routes";
 import { AuthContext } from "./components/context/context";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [ user, setIsAuth] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setUser(
+    setIsAuth(
       localStorage.getItem("auth")
         ? JSON.parse(localStorage.getItem("auth"))
         : null
@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading }}>
+    <AuthContext.Provider value={{  user, setIsAuth, isLoading }}>
       <Provider store={store}>
         <BrowserRouter>
           <AppRoutes />

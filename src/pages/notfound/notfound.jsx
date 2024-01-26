@@ -1,21 +1,19 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../store/slices/authSlice";
 import * as S from "../../App.styles";
 import Navigation from "../../components/navmenu/NavMenu";
 import Player from "../../components/player/AudioPlayer";
 import Err404 from "../../components/not-found/notfound";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { AuthContext } from "../../components/context/context";
 
 export const NotFound = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const logout = () => {
-    if (user) {
-      setUser(false);
-      navigate("/login", { replace: false });
-      localStorage.removeItem("auth");
-    }
+    dispatch(setAuth(null));
+    navigate("/login", { replace: false });
+    localStorage.removeItem("auth");
   };
 
   return (

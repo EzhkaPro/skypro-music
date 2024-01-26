@@ -1,9 +1,7 @@
 export async function getTracks() {
   const response = await fetch(
     "https://skypro-music-api.skyeng.tech/catalog/track/all/",
-    {
-      method: "GET",
-    }
+    { method: "GET" }
   );
   if (!response.ok) {
     throw new Error("Ошибка сервера");

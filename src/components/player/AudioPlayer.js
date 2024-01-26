@@ -13,10 +13,12 @@ import {
   setIsPlaying,
   setCurrentTruck,
   toggleShuffle,
+  setCurrentIsLiked,
 } from "../../store/slices/tracksSlice";
 
-export default function Player({ currentTrack, loading, isLiked }) {
+export default function Player({ currentTrack, loading }) {
   const dispatch = useDispatch();
+  const liked = useSelector((state) => state.tracks.currentIsLiked);
   const isPlaying = useSelector((state) => state.tracks.isPlaying);
   const isShuffled = useSelector((state) => state.tracks.shuffled);
   const [timeProgress, setTimeProgress] = useState(0);
@@ -24,15 +26,13 @@ export default function Player({ currentTrack, loading, isLiked }) {
   const audioRef = useRef();
   const [like] = useAddToFavoritesMutation();
   const [dislike] = useRemoveFromFavoritesMutation();
-
-  const [liked, setLiked] = useState(isLiked);
   const toggleLike = (id) => {
     if (liked) {
       dislike(id);
     } else {
       like(id);
     }
-    setLiked(!liked);
+    dispatch(setCurrentIsLiked(!liked));
   };
   const handleStart = () => {
     audioRef.current.play();
@@ -48,7 +48,6 @@ export default function Player({ currentTrack, loading, isLiked }) {
     }
     dispatch(setIsPlaying(!isPlaying));
   };
-
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
   };
@@ -60,7 +59,6 @@ export default function Player({ currentTrack, loading, isLiked }) {
     setIsCycled(!isCycled);
     audioRef.current.loop = !isCycled;
   };
-  // console.debug(isLiked)
 
   useEffect(() => {
     if (currentTrack) {
@@ -149,7 +147,7 @@ export default function Player({ currentTrack, loading, isLiked }) {
               </S.trackPlayContain>
               <S.trackPlayLikeDis>
                 <ButtonSVG
-                  name={isLiked ? "dislike" : "like"}
+                  name={liked ? "dislike" : "like"}
                   click={() => {
                     toggleLike(currentTrack.id);
                   }}
