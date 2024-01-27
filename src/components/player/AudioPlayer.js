@@ -60,7 +60,6 @@ export default function Player({ currentTrack, loading, isLiked }) {
     setIsCycled(!isCycled);
     audioRef.current.loop = !isCycled;
   };
-  // console.debug(isLiked)
 
   useEffect(() => {
     if (currentTrack) {
