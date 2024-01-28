@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { AuthContext } from "../../components/context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { setAuth } from "../../store/slices/authSlice";
 import { useFetchAllTrucksQuery } from "../../services/AuthorizedRequestService";
 import * as S from "../main/main.styles";
 import Navigation from "../../components/navmenu/NavMenu";
@@ -11,9 +10,10 @@ import Player from "../../components/player/AudioPlayer";
 
 const Layout = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const logout = () => {
-    setUser(false);
+    dispatch(setAuth(null));
     navigate("/login", { replace: false });
     localStorage.removeItem("auth");
   };

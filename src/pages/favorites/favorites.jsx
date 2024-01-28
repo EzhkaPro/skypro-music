@@ -15,7 +15,7 @@ function Favorites() {
     <>
       <TrackList
         title="Мои треки"
-        tracks={data}
+        allTracks={data}
         error={error}
         isLoading={isLoading}
       />

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { trackAPI } from "../../services/TracksService";
+import { authorizedApi } from "../../services/AuthorizedRequestService";
 
 const AUTH_KEY = "auth";
 
@@ -13,11 +13,13 @@ function getAuthFromLocalStorage() {
 }
 
 const initialState = {
+  user: false,
   id: 0,
   email: "",
   access: "",
   refresh: "",
   first_name: "",
+  username: "",
   last_name: "",
 };
 
@@ -27,6 +29,7 @@ const authSlice = createSlice({
   reducers: {
     setAuth(state, action) {
       const payload = action.payload ?? initialState;
+      state.user = !state.user;
       state.id = payload.id;
       state.email = payload.email;
       state.username = payload.username;
@@ -37,15 +40,26 @@ const authSlice = createSlice({
     setTokens(state, action) {
       const payload = action.payload ?? initialState;
       state.access = payload.access;
-      state.refresh = payload.refresh;
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      trackAPI.endpoints.getTokens.matchFulfilled,
+      authorizedApi.endpoints.getTokens.matchFulfilled,
       (state, { payload }) => {
         state.access = payload.access;
         state.refresh = payload.refresh;
+        localStorage.setItem(AUTH_KEY, JSON.stringify(state));
+      }
+    );
+    builder.addMatcher(
+      authorizedApi.endpoints.getRegistration.matchFulfilled,
+      (state, { payload }) => {
+        state.user = true;
+        state.id = payload.id;
+        state.email = payload.email;
+        state.username = payload.username;
+        state.first_name = payload.first_name;
+        state.last_name = payload.last_name;
         localStorage.setItem(AUTH_KEY, JSON.stringify(state));
       }
     );
