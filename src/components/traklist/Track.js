@@ -1,4 +1,7 @@
+// import { useState } from 'react'
+import { useDispatch } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { setCurrentIsLiked } from "../../store/slices/tracksSlice";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./Track.styles";
 import ButtonSVG from "../buttonSVG/ButtonSVG";
@@ -9,10 +12,19 @@ import {
 } from "../../services/AuthorizedRequestService";
 
 export const ListItem = ({ track, current, playing, setCurrent, isLiked }) => {
+  const dispatch = useDispatch();
   const [like] = useAddToFavoritesMutation();
   const [dislike] = useRemoveFromFavoritesMutation();
-  const toggleLike = isLiked ? dislike : like;
-
+  const toggleLike = (id) => {
+    if (isLiked) {
+      dislike(id);
+    } else {
+      like(id);
+    }
+    if (current && current.id === track.id) {
+      dispatch(setCurrentIsLiked(!isLiked));
+    }
+  };
   return (
     <S.playlistItem
       onClick={() => {
@@ -30,7 +42,7 @@ export const ListItem = ({ track, current, playing, setCurrent, isLiked }) => {
                   <S.playingDot $playing={playing} />
                 ) : (
                   <S.trackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                   </S.trackTitleSvg>
                 ))}
 
@@ -57,6 +69,7 @@ export const ListItem = ({ track, current, playing, setCurrent, isLiked }) => {
               {track ? track.album : <Skeleton width={250} />}
             </S.trackAlbumLink>
           </S.trackAlbum>
+          {/* {track && (<div>{track.release_date}</div>)} */}
           <S.trackLikeTime>
             {track ? (
               <>

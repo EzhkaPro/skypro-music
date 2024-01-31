@@ -20,11 +20,11 @@ const Categories = () => {
   return (
     <TrackList
       title={currentPlayList.name}
-      tracks={data?.items}
+      allTracks={data?.items}
       error={error}
       isLoading={isLoading}
     />
   );
 };
 
-export default Categories;
+export { Categories };
