@@ -14,8 +14,9 @@ const Layout = () => {
   const dispatch = useDispatch();
   const logout = () => {
     dispatch(setAuth(null));
-    navigate("/login", { replace: false });
+    debugger;
     localStorage.removeItem("auth");
+    navigate("/login", { replace: false });
   };
   const currentTrack = useSelector((state) => state.tracks.currentTrack);
   const { isLoading } = useFetchAllTrucksQuery();

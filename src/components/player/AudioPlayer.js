@@ -1,4 +1,3 @@
-
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -53,7 +52,7 @@ export default function Player({ currentTrack, loading }) {
     }
     dispatch(setIsPlaying(!isPlaying));
   };
-  // console.debug(likedTraks)
+
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
   };
@@ -158,12 +157,7 @@ export default function Player({ currentTrack, loading }) {
                     toggleLike(currentTrack.id);
                   }}
                 />
-                {/* <ButtonSVG
-                  name="dislike"
-                  click={() => {
-                    alert('Еще не реализовано')
-                  }}
-                /> */}
+                {}
               </S.trackPlayLikeDis>
             </S.playerTrackPlay>
           </S.barPlayer>
