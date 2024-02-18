@@ -1,4 +1,3 @@
-
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -19,13 +18,9 @@ import {
 
 export default function Player({ currentTrack, loading }) {
   const dispatch = useDispatch();
-  // const liked = !!(currentTrack?.stared_user ?? []).find(
-  //   ({ id }) => id === userId,
-  // )
   const liked = useSelector((state) => state.tracks.currentIsLiked);
   const isPlaying = useSelector((state) => state.tracks.isPlaying);
   const isShuffled = useSelector((state) => state.tracks.shuffled);
-  // const likedTraks = useSelector((state) => state.tracks.allTracks)
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef();
@@ -53,7 +48,7 @@ export default function Player({ currentTrack, loading }) {
     }
     dispatch(setIsPlaying(!isPlaying));
   };
-  // console.debug(likedTraks)
+
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
   };
@@ -158,12 +153,7 @@ export default function Player({ currentTrack, loading }) {
                     toggleLike(currentTrack.id);
                   }}
                 />
-                {/* <ButtonSVG
-                  name="dislike"
-                  click={() => {
-                    alert('Еще не реализовано')
-                  }}
-                /> */}
+                {}
               </S.trackPlayLikeDis>
             </S.playerTrackPlay>
           </S.barPlayer>
