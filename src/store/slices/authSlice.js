@@ -37,7 +37,6 @@ const authSlice = createSlice({
       state.last_name = payload.last_name;
       state.access = payload.access;
       state.refresh = payload.refresh;
-      // localStorage.setItem(AUTH_KEY, JSON.stringify(state));
     },
     setTokens(state, action) {
       const payload = action.payload ?? initialState;

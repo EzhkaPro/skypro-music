@@ -14,7 +14,6 @@ const Layout = () => {
   const dispatch = useDispatch();
   const logout = () => {
     dispatch(setAuth(null));
-    debugger;
     localStorage.removeItem("auth");
     navigate("/login", { replace: false });
   };
