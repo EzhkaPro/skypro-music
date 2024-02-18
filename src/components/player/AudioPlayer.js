@@ -18,13 +18,9 @@ import {
 
 export default function Player({ currentTrack, loading }) {
   const dispatch = useDispatch();
-  // const liked = !!(currentTrack?.stared_user ?? []).find(
-  //   ({ id }) => id === userId,
-  // )
   const liked = useSelector((state) => state.tracks.currentIsLiked);
   const isPlaying = useSelector((state) => state.tracks.isPlaying);
   const isShuffled = useSelector((state) => state.tracks.shuffled);
-  // const likedTraks = useSelector((state) => state.tracks.allTracks)
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef();
